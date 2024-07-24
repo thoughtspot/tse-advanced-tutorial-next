@@ -1,0 +1,14 @@
+.navlink {
+  display: inline;
+  margin-right: 10px;
+  color: white;
+}
+
+.navlink:hover {
+  color: orange;
+  font-weight: bold;
+}
+
+.navlink:active {
+  color: orange;
+}

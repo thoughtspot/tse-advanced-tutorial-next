@@ -1,0 +1,279 @@
+{
+  "metadata_id": "3f5d2d4b-87da-4f59-a144-85d444eada18",
+  "metadata_name": "Retail sales",
+  "contents": [
+    {
+      "available_data_row_count": 10,
+      "column_names": [
+        "Product Name",
+        "Product Type",
+        "State",
+        "Total Sales Amount",
+        "Total Quantity Purchased",
+        "Total Sales Tax %"
+      ],
+      "data_rows": [
+        [
+          "Rockwall jacket",
+          "Jackets",
+          "Missouri",
+          28458.25,
+          335,
+          8.537474999999999
+        ],
+        [
+          "Chapparal jacket",
+          "Jackets",
+          "Missouri",
+          40163.85,
+          423,
+          12.049154999999999
+        ],
+        [
+          "Light weight jacket",
+          "Jackets",
+          "Missouri",
+          93799.65000000001,
+          1707,
+          28.139894999999996
+        ],
+        [
+          "Sierra wind jacket",
+          "Jackets",
+          "Missouri",
+          94464.4,
+          1112,
+          28.339319999999997
+        ],
+        ["F1 hoody", "Sweatshirts", "Missouri", 98983.8, 1524, 29.69514],
+        [
+          "High tide vest",
+          "Vests",
+          "Missouri",
+          133082.55,
+          2049,
+          39.924764999999994
+        ],
+        ["Nice trek pants", "Pants", "Missouri", 95021.85, 1463, 28.506555],
+        [
+          "Reg fit organic ctn jeans-reg",
+          "Jeans",
+          "Missouri",
+          131220.6,
+          2388,
+          39.36617999999999
+        ],
+        [
+          "Baby cow t-shirt",
+          "Shirts",
+          "Missouri",
+          3703.7,
+          286,
+          1.1111099999999998
+        ],
+        [
+          "Organic logo t-shirt",
+          "Shirts",
+          "Missouri",
+          10877.3,
+          574,
+          3.2631899999999994
+        ]
+      ],
+      "record_offset": 0,
+      "record_size": 10,
+      "returned_data_row_count": 10,
+      "sampling_ratio": 1,
+      "visualization_id": "44dcbf8d-0a6b-40c2-9d48-0bb517df1870",
+      "visualization_name": "Product sales with tax"
+    },
+    {
+      "available_data_row_count": 10,
+      "column_names": ["Week(Sales Date)", "Total Sales Amount"],
+      "data_rows": [
+        [1514764800, 3838956.65],
+        [1515369600, 3852324.35],
+        [1515974400, 3856601.45],
+        [1516579200, 3843393.95],
+        [1517184000, 3859346.2],
+        [1517788800, 3890811.35],
+        [1518393600, 3871523.4],
+        [1518998400, 3804291],
+        [1519603200, 3681869.3000000003],
+        [1520208000, 3553987.35]
+      ],
+      "record_offset": 0,
+      "record_size": 10,
+      "returned_data_row_count": 10,
+      "sampling_ratio": 1,
+      "visualization_id": "31dca8c2-f5e8-4d12-9125-26fb7a358bd7",
+      "visualization_name": "Total Sales"
+    },
+    {
+      "available_data_row_count": 10,
+      "column_names": ["Week(Sales Date)", "Total Sales Amount"],
+      "data_rows": [
+        [1514764800, 3838956.65],
+        [1515369600, 3852324.35],
+        [1515974400, 3856601.45],
+        [1516579200, 3843393.95],
+        [1517184000, 3859346.2],
+        [1517788800, 3890811.35],
+        [1518393600, 3871523.4],
+        [1518998400, 3804291],
+        [1519603200, 3681869.3000000003],
+        [1520208000, 3553987.35]
+      ],
+      "record_offset": 0,
+      "record_size": 10,
+      "returned_data_row_count": 10,
+      "sampling_ratio": 1,
+      "visualization_id": "96625413-20fd-46b1-a766-bec63c5e2b3e",
+      "visualization_name": "Total Sales"
+    },
+    {
+      "available_data_row_count": 10,
+      "column_names": ["Week(Sales Date)", "Total Quantity Purchased"],
+      "data_rows": [
+        [1514764800, 77747],
+        [1515369600, 77713],
+        [1515974400, 78011],
+        [1516579200, 77681],
+        [1517184000, 78196],
+        [1517788800, 79093],
+        [1518393600, 78872],
+        [1518998400, 78080],
+        [1519603200, 76334],
+        [1520208000, 74773]
+      ],
+      "record_offset": 0,
+      "record_size": 10,
+      "returned_data_row_count": 10,
+      "sampling_ratio": 1,
+      "visualization_id": "d5057701-658a-4ee4-87e6-4c3565bf1d55",
+      "visualization_name": "Total Qty Purchased"
+    },
+    {
+      "available_data_row_count": 10,
+      "column_names": ["Week(Sales Date)", "Total Quantity Purchased"],
+      "data_rows": [
+        [1514764800, 77747],
+        [1515369600, 77713],
+        [1515974400, 78011],
+        [1516579200, 77681],
+        [1517184000, 78196],
+        [1517788800, 79093],
+        [1518393600, 78872],
+        [1518998400, 78080],
+        [1519603200, 76334],
+        [1520208000, 74773]
+      ],
+      "record_offset": 0,
+      "record_size": 10,
+      "returned_data_row_count": 10,
+      "sampling_ratio": 1,
+      "visualization_id": "0a9f7ccc-c145-4114-89af-df0c09ff6211",
+      "visualization_name": "Total Qty Purchased"
+    },
+    {
+      "available_data_row_count": 10,
+      "column_names": ["State", "Total Sales Amount"],
+      "data_rows": [
+        ["Nevada", 30816336.55],
+        ["Indiana", 9708604.8],
+        ["Missouri", 11096560.899999999],
+        ["California", 31233797.25],
+        ["Colorado", 33327458.2],
+        ["Delaware", 13795003.05],
+        ["Minnesota", 29875570.5],
+        ["New Jersey", 14335337.05],
+        ["Connecticut", 23017949.15],
+        ["Idaho", 13444739.05]
+      ],
+      "record_offset": 0,
+      "record_size": 10,
+      "returned_data_row_count": 10,
+      "sampling_ratio": 1,
+      "visualization_id": "2a3e9c86-e630-439d-9d14-7a88974f7b08",
+      "visualization_name": "Total Sales Amount by State"
+    },
+    {
+      "available_data_row_count": 5,
+      "column_names": ["Goal Region", "Total Goal Amount"],
+      "data_rows": [
+        ["East", 100000000],
+        ["West", 100000000],
+        ["South", 30000000],
+        ["Midwest", 200000000],
+        ["Southwest", 65000000]
+      ],
+      "record_offset": 0,
+      "record_size": 10,
+      "returned_data_row_count": 5,
+      "sampling_ratio": 1,
+      "visualization_id": "9fce91c0-85ea-4ba1-ae98-17c9e77ffb3e",
+      "visualization_name": "Total Goal Amount by Goal Region"
+    },
+    {
+      "available_data_row_count": 5,
+      "column_names": ["Goal Region", "Month(Goal Date)", "Total Goal Amount"],
+      "data_rows": [
+        ["East", 1675209600, 100000000],
+        ["Midwest", 1675209600, 200000000],
+        ["West", 1675209600, 100000000],
+        ["Southwest", 1675209600, 65000000],
+        ["South", 1677628800, 30000000]
+      ],
+      "record_offset": 0,
+      "record_size": 10,
+      "returned_data_row_count": 5,
+      "sampling_ratio": 1,
+      "visualization_id": "a603dc55-4547-4c18-811e-ed0a142182f6",
+      "visualization_name": "Goal Amount by Goal Date"
+    },
+    {
+      "available_data_row_count": 10,
+      "column_names": ["Week(Sales Date)", "Average Sales Amount"],
+      "data_rows": [
+        [1514764800, 104.57522882048488],
+        [1515369600, 105.24326166539176],
+        [1515974400, 105.15040624914798],
+        [1516579200, 104.91330321559208],
+        [1517184000, 104.83935129848963],
+        [1517788800, 104.85666334285561],
+        [1518393600, 104.1123917603399],
+        [1518998400, 101.8360949755066],
+        [1519603200, 99.14822404739465],
+        [1520208000, 95.9914474394987]
+      ],
+      "record_offset": 0,
+      "record_size": 10,
+      "returned_data_row_count": 10,
+      "sampling_ratio": 1,
+      "visualization_id": "2b5e04ee-c348-47ec-a1fb-4f32c98072ac",
+      "visualization_name": "Average Sales Amount"
+    },
+    {
+      "available_data_row_count": 10,
+      "column_names": ["Week(Sales Date)", "Average Sales Amount"],
+      "data_rows": [
+        [1514764800, 104.57522882048488],
+        [1515369600, 105.24326166539176],
+        [1515974400, 105.15040624914798],
+        [1516579200, 104.91330321559208],
+        [1517184000, 104.83935129848963],
+        [1517788800, 104.85666334285561],
+        [1518393600, 104.1123917603399],
+        [1518998400, 101.8360949755066],
+        [1519603200, 99.14822404739465],
+        [1520208000, 95.9914474394987]
+      ],
+      "record_offset": 0,
+      "record_size": 10,
+      "returned_data_row_count": 10,
+      "sampling_ratio": 1,
+      "visualization_id": "a7e8459e-2b7a-415c-a1dc-9d1f0015f7c9",
+      "visualization_name": "Average Sales Amount"
+    }
+  ]
+}
