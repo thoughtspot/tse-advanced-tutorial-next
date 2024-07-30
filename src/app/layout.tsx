@@ -1,20 +1,43 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import "./globals.css";
 import { TopNavBar } from "../components/TopNavBar";
 import { TSFooter } from "../components/TSFooter";
 
-import { AuthStatus, AuthType, init } from "@thoughtspot/visual-embed-sdk";
+import {
+  AuthStatus,
+  AuthType,
+  customCssInterface,
+  init,
+} from "@thoughtspot/visual-embed-sdk";
 
 import { getAuthToken } from "@/lib/utils";
-import { constants } from "@/lib/constants";
+import { constants, cssFiles } from "@/lib/constants";
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+// current options are 'default' and 'dark'. See cssFiles in constants.js
+let cssStyle = "dark";
+
+const tsInitialize = () => {
   console.log("Initializing ThoughtSpot SDK");
+
+  let customCss: customCssInterface;
+  if (cssStyle === "dark") {
+    // dark mode requires a special CSS rule for tables.
+    customCss = {
+      rules_UNSTABLE: {
+        ".bk-outline .ag-theme-alpine .ag-row": {
+          color: "white",
+        },
+      },
+    };
+  } else {
+    customCss = {};
+  }
+
+  console.log("initializing with cssStyle: ", cssStyle);
 
   const ee = init({
     thoughtSpotHost: constants.tsURL,
@@ -22,6 +45,18 @@ export default function RootLayout({
     username: constants.username,
     getAuthToken: () => {
       return getAuthToken(constants.username);
+    },
+    callPrefetch: true,
+    customizations: {
+      style: {
+        customCSSUrl: cssFiles[cssStyle as keyof typeof cssFiles],
+        customCSS: customCss,
+      },
+      content: {
+        strings: {
+          Go: "Search",
+        },
+      },
     },
   });
 
@@ -36,6 +71,24 @@ export default function RootLayout({
         console.log("Failure:  " + reason);
       });
   }
+};
+
+tsInitialize();
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const [style, setStyle] = useState("");
+  const [key, setKey] = useState(0);
+
+  const changeStyle = (style: string) => {
+    console.log("Changing style to: " + style);
+    cssStyle = style;
+    tsInitialize();
+    setKey((prevKey) => prevKey + 1); // force re-render
+  };
 
   return (
     <html lang="en">
@@ -45,7 +98,7 @@ export default function RootLayout({
         <link rel="icon" href="/images/ts.png" type="images/png" />
       </head>
       <body>
-        <TopNavBar />
+        <TopNavBar setStyle={changeStyle} />
         <div className="embeddedContent">{children}</div>
         <TSFooter />
       </body>

@@ -4,3 +4,10 @@ export const constants = {
   passcode: "BlueShirtGuy",
   username: "user300",
 };
+
+// CSS files to choose from.  These are pointing to files hosted on GitHub via jsDelivr.
+export const cssFiles = {
+  default:
+    "https://cdn.jsdelivr.net/gh/thoughtspot/tse-advanced-tutorial/css/default.css",
+  dark: "https://cdn.jsdelivr.net/gh/thoughtspot/tse-advanced-tutorial/css/dark.css",
+};
