@@ -13,8 +13,11 @@ import {
 import { ContextActionData } from "@/lib/data-classes";
 import { ContextActionDataType } from "@/lib/data-classes-types";
 
+import { useStyle, StyleContext } from "@/contexts/StyleContext";
+
 const CustomAction = () => {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
+  // const { style } = useStyle(); // needed to refresh when the style changes.
 
   const chartRef = useEmbedRef<typeof LiveboardEmbed>();
 
@@ -33,15 +36,19 @@ const CustomAction = () => {
   }, []);
 
   return (
-    <>
-      <StateSales onShowDetails={showDetailsCallback}></StateSales>
-      {showDetailsModal && (
-        <ShowDetailsPopup
-          filter={[stateFilter]}
-          hideDetailsModal={closeDetailsModalCallback}
-        ></ShowDetailsPopup>
+    <StyleContext.Consumer>
+      {(style) => (
+        <>
+          <StateSales onShowDetails={showDetailsCallback}></StateSales>
+          {showDetailsModal && (
+            <ShowDetailsPopup
+              filter={[stateFilter]}
+              hideDetailsModal={closeDetailsModalCallback}
+            ></ShowDetailsPopup>
+          )}
+        </>
       )}
-    </>
+    </StyleContext.Consumer>
   );
 };
 

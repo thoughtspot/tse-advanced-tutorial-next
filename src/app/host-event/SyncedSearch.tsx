@@ -8,6 +8,8 @@ import {
   useEmbedRef,
 } from "@thoughtspot/visual-embed-sdk/react";
 
+import { StyleContext } from "@/contexts/StyleContext";
+
 import styles from "./SyncedSearch.module.css";
 
 const SyncedSearch = () => {
@@ -25,7 +27,7 @@ const SyncedSearch = () => {
   return (
     <>
       <ChartSearch chartRef={chartRef} onChartDataUpdate={onChartDataUpdate} />
-      {tml && <TableSearch tml={tml} />}
+      {tml && <TableSearch searchTokenString={tml} />}
     </>
   );
 };
@@ -36,43 +38,56 @@ interface ChartSearchProps {
 }
 
 const ChartSearch = (props: ChartSearchProps) => {
+  console.log("Rendering ChartSearch");
+
   return (
-    <div className={styles.chartEmbed}>
-      <SearchEmbed
-        ref={props.chartRef}
-        dataSources={["4d98d3f5-5c6a-44eb-82fb-d529ca20e31f"]}
-        collapseDataSources={true}
-        searchOptions={{
-          searchTokenString:
-            "[sales] [product type] top 30 [sales date].monthly",
-          executeSearch: true,
-        }}
-        onData={props.onChartDataUpdate}
-      ></SearchEmbed>
-    </div>
+    <StyleContext.Consumer>
+      {(style) => (
+        <div className={styles.chartEmbed}>
+          <SearchEmbed
+            ref={props.chartRef}
+            dataSource={"4d98d3f5-5c6a-44eb-82fb-d529ca20e31f"}
+            collapseSearchBarInitially={true}
+            collapseDataSources={true}
+            searchOptions={{
+              searchTokenString:
+                "[sales] [product type] top 30 [sales date].monthly",
+              executeSearch: true,
+            }}
+            onData={props.onChartDataUpdate}
+          ></SearchEmbed>
+        </div>
+      )}
+    </StyleContext.Consumer>
   );
 };
 
 interface TableSearchProps {
-  tml: string;
+  searchTokenString: string;
 }
 
 const TableSearch = (props: TableSearchProps) => {
+  console.log("Rendering TableSearch");
+
   return (
-    <div className={styles.chartEmbed}>
-      <SearchEmbed
-        dataSource={"4d98d3f5-5c6a-44eb-82fb-d529ca20e31f"}
-        collapseDataSources={true}
-        searchOptions={{
-          searchTokenString: props.tml,
-          executeSearch: true,
-        }}
-        forceTable={true}
-        visibleActions={[]}
-        hideDataSources={true}
-        hideSearchBar={true}
-      ></SearchEmbed>
-    </div>
+    <StyleContext.Consumer>
+      {(style) => (
+        <div className={styles.chartEmbed}>
+          <SearchEmbed
+            dataSource={"4d98d3f5-5c6a-44eb-82fb-d529ca20e31f"}
+            collapseDataSources={true}
+            searchOptions={{
+              searchTokenString: props.searchTokenString,
+              executeSearch: true,
+            }}
+            forceTable={true}
+            visibleActions={[]}
+            hideDataSources={true}
+            hideSearchBar={true}
+          ></SearchEmbed>
+        </div>
+      )}
+    </StyleContext.Consumer>
   );
 };
 

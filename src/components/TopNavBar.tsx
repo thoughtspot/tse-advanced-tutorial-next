@@ -3,13 +3,15 @@
 import Link from "next/link";
 import { Dropdown, Navbar } from "flowbite-react";
 
+import { useStyle } from "../contexts/StyleContext";
+
 import styles from "./TopNavBar.module.css";
 
-interface NavBarProps {
-  setStyle: (style: string) => void;
-}
+interface NavBarProps {}
 
 export function TopNavBar(props: NavBarProps) {
+  const { style, setStyle } = useStyle();
+
   return (
     <Navbar fluid className="bg-black text-white">
       <Navbar.Brand as={Link} href="/#">
@@ -35,10 +37,20 @@ export function TopNavBar(props: NavBarProps) {
           label={"Style"}
           className="dark:text-white"
         >
-          <Dropdown.Item onClick={() => props.setStyle("default")}>
+          <Dropdown.Item
+            onClick={() => {
+              console.log("setting default");
+              setStyle("default");
+            }}
+          >
             Default
           </Dropdown.Item>
-          <Dropdown.Item onClick={() => props.setStyle("dark")}>
+          <Dropdown.Item
+            onClick={() => {
+              console.log("setting dark");
+              setStyle("dark");
+            }}
+          >
             Dark
           </Dropdown.Item>
         </Dropdown>
