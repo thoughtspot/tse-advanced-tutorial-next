@@ -88,7 +88,7 @@ const ShowDetailsPopup = (props: ShowDetailsProps) => {
                     onClick={() => props.hideDetailsModal()}
                     className={styles.closeButton}
                 >
-                    X
+                    Close
                 </button>
                 <LiveboardEmbed
                     frameParams={{height: "90%"}}

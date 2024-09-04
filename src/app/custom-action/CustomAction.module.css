@@ -28,12 +28,14 @@
 .closeButton {
   top: 10px;
   left: 10px;
-  font-size: 20px;
+  font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
   color: white;
-  background-color: grey;
+  background-color: red;
   padding: 1px 3px;
   margin: 1px;
-  border: 1px solid black;
+  border: 1px solid red;
+  border-radius: 25%;
   transition: background-color 1s ease;
 }

@@ -44,7 +44,7 @@ div[data-testid="tsEmbed"] {
   width: 100%;
 }
 
-/* Used for the centeral embedded content where TS is embedded. */
+/* Used for the central embedded content where TS is embedded. */
 .embeddedContent {
   padding: 0;
   height: 85vh;

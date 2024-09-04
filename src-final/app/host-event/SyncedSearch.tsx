@@ -61,6 +61,7 @@ interface TableSearchProps {
 }
 
 const TableSearch = (props: TableSearchProps) => {
+    console.log("Rendering TableSearch");
 
     return (
         <div className={styles.chartEmbed}>
