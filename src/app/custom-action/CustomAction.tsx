@@ -14,10 +14,12 @@ import {ContextActionData} from "@/lib/data-classes";
 import {ContextActionDataType} from "@/lib/data-classes-types";
 
 const CustomAction = () => {
-    const [showDetailsModal, setShowDetailsModal] = useState(false);
-
     const chartRef = useEmbedRef<typeof LiveboardEmbed>();
 
+    // If true, then the popup with details is shown.
+    const [showDetailsModal, setShowDetailsModal] = useState(false);
+
+    // Filter for the state clicked on.
     const [stateFilter, setStateFilter] = useState("");
 
     // TODO - handle the callback, get the filter, and then enable show-modal.
@@ -53,7 +55,7 @@ interface StateSalesProps {
 const StateSales = (props: StateSalesProps) => {
     const chartRef = useEmbedRef<typeof LiveboardEmbed>();
 
-    // Extracts the state from the payload.
+    // Lesson 3.2 - Extract the filter for the state clicked using the dataclasses.
     const onShowDetails = (payload: {}) => {
         const contextActionData = ContextActionData.createFromJSON(
             payload as ContextActionDataType
@@ -63,15 +65,15 @@ const StateSales = (props: StateSalesProps) => {
         props.onShowDetails?.(state);
     };
 
+    // Lesson 3.1 - Embed a liveboard visualization that shows the state chart and handles the custom action.
+    // <LiveboardEmbed
+    //     chartRef={chartRef}
+    //     ...
+    //     onCustomAction={onShowDetails}
+    // ></LiveboardEmbed>
+
     return (
-        <LiveboardEmbed
-            chartRef={chartRef}
-            liveboardId="879252b1-510c-4fed-a4ae-ad8d14e40d90"
-            vizId="c17072a9-8f4b-4016-9dcf-920c5ec65eda"
-            // @ts-ignore -- visibleActions can also take strings in addition to the enum values.
-            visibleActions={["show-details"]}
-            onCustomAction={onShowDetails}
-        ></LiveboardEmbed>
+        <></>
     );
 };
 
@@ -81,6 +83,13 @@ interface ShowDetailsProps {
 }
 
 const ShowDetailsPopup = (props: ShowDetailsProps) => {
+
+    // Lesson 3.3 - Embed a liveboard visualization that shows the details chart with the state filter.
+    // </button>
+    // <LiveboardEmbed
+    //     ...
+    // ></LiveboardEmbed>
+    // NOTE: use values: props.filter for the state filter.
     return (
         <div className={styles.modalBox}>
             <div className={styles.modalContent}>
@@ -90,18 +99,7 @@ const ShowDetailsPopup = (props: ShowDetailsProps) => {
                 >
                     X
                 </button>
-                <LiveboardEmbed
-                    frameParams={{height: "90%"}}
-                    liveboardId="879252b1-510c-4fed-a4ae-ad8d14e40d90"
-                    vizId="4a002bae-8e3c-4bcd-8bbf-1e74cea4e41e"
-                    runtimeFilters={[
-                        {
-                            columnName: "state",
-                            operator: RuntimeFilterOp.EQ,
-                            values: props.filter,
-                        },
-                    ]}
-                ></LiveboardEmbed>
+
             </div>
         </div>
     );

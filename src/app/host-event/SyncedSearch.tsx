@@ -15,6 +15,7 @@ const SyncedSearch = () => {
 
     const chartRef = useEmbedRef<typeof SearchEmbed>();
 
+    // 2.2 Function to handle chart updates and update the table.
     const onChartDataUpdate = useCallback(() => {
         chartRef.current?.trigger(HostEvent.GetTML, tml).then((response) => {
             console.log(response.answer.search_query);
@@ -39,19 +40,14 @@ const ChartSearch = (props: ChartSearchProps) => {
     console.log("Rendering ChartSearch");
 
     return (
-        <div className={styles.chartEmbed}>
+        /*  2.1 Embed a search embed component for the chart inside the following div.
             <SearchEmbed
                 ref={props.chartRef}
-                dataSource={"4d98d3f5-5c6a-44eb-82fb-d529ca20e31f"}
-                collapseSearchBarInitially={true}
-                collapseDataSources={true}
-                searchOptions={{
-                    searchTokenString:
-                        "[sales] [product type] top 30 [sales date].monthly",
-                    executeSearch: true,
-                }}
+                ...
                 onData={props.onChartDataUpdate}
             ></SearchEmbed>
+         */
+        <div className={styles.chartEmbed}>
         </div>
     );
 };
@@ -63,19 +59,11 @@ interface TableSearchProps {
 const TableSearch = (props: TableSearchProps) => {
 
     return (
-        <div className={styles.chartEmbed}>
-            <SearchEmbed
-                dataSource={"4d98d3f5-5c6a-44eb-82fb-d529ca20e31f"}
-                collapseDataSources={true}
-                searchOptions={{
-                    searchTokenString: props.searchTokenString,
-                    executeSearch: true,
-                }}
-                forceTable={true}
-                visibleActions={[]}
-                hideDataSources={true}
-                hideSearchBar={true}
+        /*  2.3 Embed a search embed component for the chart inside the following div.
+            <SearchEmbed ...
             ></SearchEmbed>
+         */
+        <div className={styles.chartEmbed}>
         </div>
     );
 };

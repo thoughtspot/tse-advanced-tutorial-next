@@ -23,6 +23,7 @@ export default function ThoughtSpotEmbed({
     const tsInitialize = () => {
         console.log("Initializing ThoughtSpot SDK");
 
+        // Lesson 5.2 - Review for custom CSS settings.
         let customCss: customCssInterface;
         if (style === "dark") {
             // dark mode requires a special CSS rule for tables.
@@ -37,26 +38,10 @@ export default function ThoughtSpotEmbed({
             customCss = {};
         }
 
-        const ee = init({
-            thoughtSpotHost: constants.tsURL,
-            authType: AuthType.TrustedAuthTokenCookieless,
-            username: constants.username,
-            getAuthToken: () => {
-                return getAuthToken(constants.username);
-            },
-            callPrefetch: true,
-            customizations: {
-                style: {
-                    customCSSUrl: cssFiles[style as keyof typeof cssFiles],
-                    customCSS: customCss,
-                },
-                content: {
-                    strings: {
-                        Go: "Search",
-                    },
-                },
-            },
-        });
+        // Lesson 1.2 - Add an init block to authenticate using trusted authentication.
+        // Lesson 5.3 - Add the customizations for styles.
+        // Lesson 5.4 - Add the customization for strings.
+        const ee = undefined;
 
         if (ee) {
             ee.on(AuthStatus.SUCCESS, () => {

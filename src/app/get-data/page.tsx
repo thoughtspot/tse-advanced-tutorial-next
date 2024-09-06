@@ -26,22 +26,12 @@ export default function GetData() {
   useEffect(() => {
     // Get the data using the search API.
     const api = new ThoughtSpotRestApi(tokenConfig);
-    api
-      .searchData({
-        query_string: tmlquery,
-        logical_table_identifier: worksheetId,
-        record_size: 50, // just get 50 rows.
-      })
-      .then((data) => {
-        const searchData = SearchData.createFromJSON(data);
-        console.log(searchData);
-        setSearchData(searchData);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    // Lesson 4.2 - Use the API to call searchData and set the searchData state
+    // api.searchData().then().catch();
+
   }, []);
 
+  // Lesson 4.3 - Shows the loading message or the data as a table once the call is searchData is populated.
   return (
     <div className="overflow-x-auto">
       <div>
