@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TSE Advanced Tutorial Next
 
-## Getting Started
+This repository contains the code for
+the [TSE Advanced Embedding for Javascript Developers](https://training.thoughtspot.com/thoughtspot-embedded-advanced-embedding-for-javascript-developers)
+course.
 
-First, run the development server:
+## Requirements
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+For this course, you will need the following:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* (optional) `git` command line if using the `git clone` download. See the [Git Clone Section](#git-clone)
+* `npm`, aka Node Package Manager. This code has been testing on 10.8.3+, but any modern version should work.
+* An IDE such as [VS Code](https://code.visualstudio.com/), [PyCharm](https://www.jetbrains.com/pycharm/) or similar
+  that supports React apps.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setting up for training
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+First you need to download the code. There are two approaches, you can clone the code using `git clone` or you can
+download the code.  `git clone` is recommended, but both approaches work.
 
-## Learn More
+### Git clone
 
-To learn more about Next.js, take a look at the following resources:
+This approach requires you to have git installed on your computer. From the command line run
+`git clone https://github.com/thoughtspot/tse-advanced-tutorial-next`. You should see messages like the following and a
+new folder, called `tse-advanced-tutorial-next` will be created.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![Git clone](docs/git-clone.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Download code
 
-## Deploy on Vercel
+Alternatively, you can download the code from GitHub using the UI.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Download repo](docs/git-download.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This will download a file called `tse-advanced-tutorial-next-main.zip`. Unzip the file and you get a directory
+called `tse-advanced-tutorial-next-main`.
+
+## Install dependencies
+
+Now that you've downloaded the code from GitHub, you need to install dependencies.  `cd` into the directory name based
+on your download option. Then run `npm install`. You may see some warnings, but can typically ignore those. You will get
+a message like the following once the installation is complete:
+
+![NPM install](docs/npm-install.png)
+
+## Starting the application
+
+Finally, run `npm run dev`. You should see a message saying the server has started.
+
+![NPM run dev](docs/npm-run-dev.png)
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the starting page.
+
+![Application home page](docs/home-page.png)
+
+## Technical links
+
+The following are links to the main technologies used in this course.
+
+* [ThoughtSpot React documentation](https://developers.thoughtspot.com/docs/react-app-embed) for details on how to
+  install and use TS React components.
+* [React developer site](https://react.dev/) to learn more about React.
+* [Next.js developer site](https://nextjs.org/) to learn more about Next.js
+* [Typescript Language site](https://www.typescriptlang.org/) to learn more about typescript.
+* [Flowbite for React](https://flowbite-react.com/) to learn about the components used in this application.
