@@ -73,7 +73,9 @@ const StateSales = (props: StateSalesProps) => {
     // ></LiveboardEmbed>
 
     return (
-        <></>
+        <>
+            <p>Not yet implemented</p>
+        </>
     );
 };
 
@@ -99,7 +101,7 @@ const ShowDetailsPopup = (props: ShowDetailsProps) => {
                 >
                     X
                 </button>
-
+                <p>Not yet implemented.</p>
             </div>
         </div>
     );

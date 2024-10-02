@@ -39,7 +39,7 @@ export default function GetData() {
           Search Data ID: {worksheetId} -- Query: {tmlquery}
         </p>
       </div>
-      {!searchData && <p>Loading.....</p>}
+      {!searchData && <p>Not yet implemented.....</p>}
       {searchData && (
         <Table striped>
           <Table.Head>

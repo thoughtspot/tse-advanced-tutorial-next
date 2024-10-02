@@ -48,6 +48,7 @@ const ChartSearch = (props: ChartSearchProps) => {
             ></SearchEmbed>
          */
         <div className={styles.chartEmbed}>
+            <p>Not yet implemented</p>
         </div>
     );
 };
@@ -64,6 +65,7 @@ const TableSearch = (props: TableSearchProps) => {
             ></SearchEmbed>
          */
         <div className={styles.chartEmbed}>
+            <p>Not yet implemented</p>
         </div>
     );
 };
