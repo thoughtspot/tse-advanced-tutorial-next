@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    background: rgb(var(--background-rgb));
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+h1 {
+  margin-top: 5px;
+  font-size: 2.5rem;
+}
+
+min-h-80 {
+  min-height: 80vh;
+}
+
+min-h-90 {
+  min-height: 80vh;
+}
+
+/* Used for the TS embedded div that isn't properly styled */
+div[data-testid="tsEmbed"] {
+  height: 100%;
+  width: 100%;
+}
+
+/* Used for the central embedded content where TS is embedded. */
+.embeddedContent {
+  padding: 0;
+  height: 85vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+}

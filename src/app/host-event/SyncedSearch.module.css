@@ -1,0 +1,14 @@
+.chartEmbed,
+.tableEmbed {
+  height: 100%;
+  width: 50%;
+  background: darkgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid darkgray;
+}
+
+.info {
+  color: grey;
+}
