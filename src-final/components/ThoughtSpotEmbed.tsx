@@ -18,7 +18,7 @@ export default function ThoughtSpotEmbed({
   const tsInitialize = () => {
     console.log("Initializing ThoughtSpot SDK");
 
-    // Custom CSS for the pop-up embed.  Add to the init.
+    // (Optional) Custom CSS for the pop-up embed.  Add to the init.
     const customizations = {
       style: {
         customCSS: {
