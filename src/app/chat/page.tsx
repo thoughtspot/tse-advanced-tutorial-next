@@ -48,9 +48,10 @@ const DataWizard = () => {
       }
     } catch (err) {
       // Remove "working..." in case of error
-      const workingElement = resultsRef.current?.querySelector(
-        "div:contains('working...')"
-      );
+      const workingElement = resultsRef.current?.querySelector("div.italic");
+      if (workingElement && workingElement.textContent === "working...") {
+        resultsRef.current?.removeChild(workingElement);
+      }
       if (workingElement) resultsRef.current?.removeChild(workingElement);
 
       showError(
