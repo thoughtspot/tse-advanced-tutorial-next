@@ -41,7 +41,7 @@ min-h-90 {
 /* Used for the TS embedded div that isn't properly styled */
 div[data-testid="tsEmbed"] {
   height: 100%;
-  width: 100%;
+  width: 100vw;
 }
 
 /* Used for the central embedded content where TS is embedded. */

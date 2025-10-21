@@ -1,110 +1,84 @@
 "use client";
 
-import {useCallback, useState} from "react";
+import { useCallback } from "react";
 
-import styles from "./CustomAction.module.css";
+import { SearchEmbed, useEmbedRef } from "@thoughtspot/visual-embed-sdk/react";
 
-import {
-    LiveboardEmbed,
-    RuntimeFilterOp,
-    useEmbedRef,
-} from "@thoughtspot/visual-embed-sdk/react";
-
-import {ContextActionData} from "@/lib/data-classes";
-import {ContextActionDataType} from "@/lib/data-classes-types";
+import { ActionData } from "@/lib/data-classes";
+import { ActionDataType } from "@/lib/data-classes-types";
 
 const CustomAction = () => {
-    const [showDetailsModal, setShowDetailsModal] = useState(false);
+  // 3.2 - Handle custom action callback
+  const handleCustomAction = useCallback((payload: any) => {
+    console.log("Custom action triggered:", payload);
 
-    const chartRef = useEmbedRef<typeof LiveboardEmbed>();
+    // Check if this is the order-inventory action we want to handle
+    const actionId = payload.id || payload.data?.id;
+    if (actionId !== "order-inventory") {
+      console.log("Not an order-inventory action, ignoring");
+      return;
+    }
 
-    const [stateFilter, setStateFilter] = useState("");
+    try {
+      // Use ActionData class to convert from JSON
+      const actionData = ActionData.createFromJSON(payload as ActionDataType);
 
-    // TODO - handle the callback, get the filter, and then enable show-modal.
-    const showDetailsCallback = useCallback((state: string) => {
-        setStateFilter(state);
+      // Get column names and check if SKU column exists (case insensitive)
+      const columnNames = actionData.columnNames;
+      const skuColumnExists = columnNames.some(
+        (name: string) => name.toLowerCase() === "sku"
+      );
 
-        setShowDetailsModal(true);
-    }, []);
-
-    const closeDetailsModalCallback = useCallback(() => {
-        console.log("Show details modal callback");
-        setShowDetailsModal(false);
-    }, []);
-
-    return (
-        <>
-            <StateSales onShowDetails={showDetailsCallback}></StateSales>
-            {showDetailsModal && (
-                <ShowDetailsPopup
-                    filter={[stateFilter]}
-                    hideDetailsModal={closeDetailsModalCallback}
-                ></ShowDetailsPopup>
-            )}
-        </>
-    );
-};
-
-// The state sales allows the user to select the state filter.
-interface StateSalesProps {
-    onShowDetails?: (state: string) => void;
-}
-
-const StateSales = (props: StateSalesProps) => {
-    const chartRef = useEmbedRef<typeof LiveboardEmbed>();
-
-    // Extracts the state from the payload.
-    const onShowDetails = (payload: {}) => {
-        const contextActionData = ContextActionData.createFromJSON(
-            payload as ContextActionDataType
+      if (!skuColumnExists) {
+        // Show error message to user
+        alert(
+          "Error: SKU column not found in the selected data. Please ensure your data includes a SKU column."
         );
-        const table = contextActionData.getDataAsTable(["State"]); // Gets a table of the data for just the state column
-        const state = table[0][0]; // Get the actual state.  One column with one value.
-        props.onShowDetails?.(state);
-    };
+        return;
+      }
 
-    return (
-        <LiveboardEmbed
-            chartRef={chartRef}
-            liveboardId="879252b1-510c-4fed-a4ae-ad8d14e40d90"
-            vizId="c17072a9-8f4b-4016-9dcf-920c5ec65eda"
-            // @ts-ignore -- visibleActions can also take strings in addition to the enum values.
-            visibleActions={["show-details"]}
-            onCustomAction={onShowDetails}
-        ></LiveboardEmbed>
-    );
-};
+      // Extract SKU data using getDataAsTable method
+      const skuTable = actionData.getDataAsTable(["sku"]);
 
-interface ShowDetailsProps {
-    filter: string[];
-    hideDetailsModal: () => void;
-}
+      // Create URL with SKU parameters
+      const baseUrl = "https://tse-order-inventory.vercel.app/order";
+      const skuParams = skuTable
+        .map((row) => `sku=${encodeURIComponent(row[0])}`)
+        .join("&");
+      const fullUrl = `${baseUrl}?${skuParams}`;
 
-const ShowDetailsPopup = (props: ShowDetailsProps) => {
-    return (
-        <div className={styles.modalBox}>
-            <div className={styles.modalContent}>
-                <button
-                    onClick={() => props.hideDetailsModal()}
-                    className={styles.closeButton}
-                >
-                    Close
-                </button>
-                <LiveboardEmbed
-                    frameParams={{height: "90%"}}
-                    liveboardId="879252b1-510c-4fed-a4ae-ad8d14e40d90"
-                    vizId="4a002bae-8e3c-4bcd-8bbf-1e74cea4e41e"
-                    runtimeFilters={[
-                        {
-                            columnName: "state",
-                            operator: RuntimeFilterOp.EQ,
-                            values: props.filter,
-                        },
-                    ]}
-                ></LiveboardEmbed>
-            </div>
-        </div>
-    );
+      console.log("Opening URL:", fullUrl);
+
+      // Open URL in new tab
+      window.open(fullUrl, "_blank");
+    } catch (error) {
+      console.error("Error processing custom action:", error);
+      alert("Error processing the custom action. Please try again.");
+    }
+  }, []);
+
+  return (
+    // 3.1 Embed a search embed to use the custom action.
+    /*
+    <SearchEmbed
+      ...
+      onCustomAction={handleCustomAction}
+    />
+   */
+
+    <div>
+      <SearchEmbed
+        dataSource="4d98d3f5-5c6a-44eb-82fb-d529ca20e31f"
+        collapseDataPanel={true}
+        searchOptions={{
+          searchTokenString:
+            "[Product] [Product Type] [SKU] [Quantity Purchased] sum [Quantity Purchased] > 150000",
+          executeSearch: true,
+        }}
+        onCustomAction={handleCustomAction}
+      />
+    </div>
+  );
 };
 
 export default CustomAction;

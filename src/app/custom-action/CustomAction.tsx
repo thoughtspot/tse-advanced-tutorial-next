@@ -1,110 +1,75 @@
 "use client";
 
-import {useCallback, useState} from "react";
+import { useCallback } from "react";
 
-import styles from "./CustomAction.module.css";
+import { SearchEmbed, useEmbedRef } from "@thoughtspot/visual-embed-sdk/react";
 
-import {
-    LiveboardEmbed,
-    RuntimeFilterOp,
-    useEmbedRef,
-} from "@thoughtspot/visual-embed-sdk/react";
-
-import {ContextActionData} from "@/lib/data-classes";
-import {ContextActionDataType} from "@/lib/data-classes-types";
+import { ActionData } from "@/lib/data-classes";
+import { ActionDataType } from "@/lib/data-classes-types";
 
 const CustomAction = () => {
-    const chartRef = useEmbedRef<typeof LiveboardEmbed>();
+  // 3.2 - Handle custom action callback
+  const handleCustomAction = useCallback((payload: any) => {
+    console.log("Custom action triggered:", payload);
 
-    // If true, then the popup with details is shown.
-    const [showDetailsModal, setShowDetailsModal] = useState(false);
+    // Check if this is the order-inventory action we want to handle
+    const actionId = payload.id || payload.data?.id;
+    if (actionId !== "order-inventory") {
+      console.log("Not an order-inventory action, ignoring");
+      return;
+    }
 
-    // Filter for the state clicked on.
-    const [stateFilter, setStateFilter] = useState("");
+    try {
+      // Use ActionData class to convert from JSON
+      const actionData = ActionData.createFromJSON(payload as ActionDataType);
 
-    // TODO - handle the callback, get the filter, and then enable show-modal.
-    const showDetailsCallback = useCallback((state: string) => {
-        setStateFilter(state);
+      // Get column names and check if SKU column exists (case insensitive)
+      const columnNames = actionData.columnNames;
+      const skuColumnExists = columnNames.some(
+        (name: string) => name.toLowerCase() === "sku"
+      );
 
-        setShowDetailsModal(true);
-    }, []);
-
-    const closeDetailsModalCallback = useCallback(() => {
-        console.log("Show details modal callback");
-        setShowDetailsModal(false);
-    }, []);
-
-    return (
-        <>
-            <StateSales onShowDetails={showDetailsCallback}></StateSales>
-            {showDetailsModal && (
-                <ShowDetailsPopup
-                    filter={[stateFilter]}
-                    hideDetailsModal={closeDetailsModalCallback}
-                ></ShowDetailsPopup>
-            )}
-        </>
-    );
-};
-
-// The state sales allows the user to select the state filter.
-interface StateSalesProps {
-    onShowDetails?: (state: string) => void;
-}
-
-const StateSales = (props: StateSalesProps) => {
-    const chartRef = useEmbedRef<typeof LiveboardEmbed>();
-
-    // Lesson 3.2 - Extract the filter for the state clicked using the dataclasses.
-    const onShowDetails = (payload: {}) => {
-        const contextActionData = ContextActionData.createFromJSON(
-            payload as ContextActionDataType
+      if (!skuColumnExists) {
+        // Show error message to user
+        alert(
+          "Error: SKU column not found in the selected data. Please ensure your data includes a SKU column."
         );
-        const table = contextActionData.getDataAsTable(["State"]); // Gets a table of the data for just the state column
-        const state = table[0][0]; // Get the actual state.  One column with one value.
-        props.onShowDetails?.(state);
-    };
+        return;
+      }
 
-    // Lesson 3.1 - Embed a liveboard visualization that shows the state chart and handles the custom action.
-    // <LiveboardEmbed
-    //     chartRef={chartRef}
-    //     ...
-    //     onCustomAction={onShowDetails}
-    // ></LiveboardEmbed>
+      // Extract SKU data using getDataAsTable method
+      const skuTable = actionData.getDataAsTable(["sku"]);
 
-    return (
-        <>
-            <p>Not yet implemented</p>
-        </>
-    );
-};
+      // Create URL with SKU parameters
+      const baseUrl = "https://tse-order-inventory.vercel.app/order";
+      const skuParams = skuTable
+        .map((row) => `sku=${encodeURIComponent(row[0])}`)
+        .join("&");
+      const fullUrl = `${baseUrl}?${skuParams}`;
 
-interface ShowDetailsProps {
-    filter: string[];
-    hideDetailsModal: () => void;
-}
+      console.log("Opening URL:", fullUrl);
 
-const ShowDetailsPopup = (props: ShowDetailsProps) => {
+      // Open URL in new tab
+      window.open(fullUrl, "_blank");
+    } catch (error) {
+      console.error("Error processing custom action:", error);
+      alert("Error processing the custom action. Please try again.");
+    }
+  }, []);
 
-    // Lesson 3.3 - Embed a liveboard visualization that shows the details chart with the state filter.
-    // </button>
-    // <LiveboardEmbed
-    //     ...
-    // ></LiveboardEmbed>
-    // NOTE: use values: props.filter for the state filter.
-    return (
-        <div className={styles.modalBox}>
-            <div className={styles.modalContent}>
-                <button
-                    onClick={() => props.hideDetailsModal()}
-                    className={styles.closeButton}
-                >
-                    X
-                </button>
-                <p>Not yet implemented.</p>
-            </div>
-        </div>
-    );
+  return (
+    // 3.1 Embed a search embed to use the custom action.
+    /*
+    <SearchEmbed
+      ...
+      onCustomAction={handleCustomAction}
+    />
+   */
+
+    <div>
+      <p>Not yet implemented.</p>
+    </div>
+  );
 };
 
 export default CustomAction;

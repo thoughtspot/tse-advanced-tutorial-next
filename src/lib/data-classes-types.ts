@@ -6,31 +6,33 @@
 
 // Sent by menu actions on answers, including individual visualizations in a liveboard.
 export interface ActionDataType {
-  embedAnswerData: {
-    columns: {
-      __typename: string;
-      column: {
+  data: {
+    embedAnswerData: {
+      columns: {
         __typename: string;
-        dataType: string;
-        id: string;
-        name: string;
-        referencedColumns: {
+        column: {
           __typename: string;
-          displayName: string;
-        }[];
-        type: string;
-      };
-    }[];
-    data: {
-      columnDataLite: {
-        columnDataType: string;
-        columnId: string;
-        dataValue: (string | number)[];
+          dataType: string;
+          id: string;
+          name: string;
+          referencedColumns: {
+            __typename: string;
+            displayName: string;
+          }[];
+          type: string;
+        };
       }[];
-      completionRatio: number;
-      samplingRatio: number;
-      totalRowCount: string;
-    }[];
+      data: {
+        columnDataLite: {
+          columnDataType: string;
+          columnId: string;
+          dataValue: (string | number)[];
+        }[];
+        completionRatio: number;
+        samplingRatio: number;
+        totalRowCount: string;
+      };
+    };
   };
 }
 

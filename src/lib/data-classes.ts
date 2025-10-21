@@ -196,11 +196,36 @@ export class TabularData {
 
     let arrays = [];
     for (let cname of columnNames) {
-      arrays.push(this.data[cname]);
+      // Find the column name in a case-insensitive way
+      const actualColumnName = this.findColumnNameCaseInsensitive(cname);
+      if (actualColumnName) {
+        arrays.push(this.data[actualColumnName]);
+      } else {
+        throw new Error(
+          `Column "${cname}" not found. Available columns: ${this.columnNames.join(
+            ", "
+          )}`
+        );
+      }
     }
 
     const results = zip(arrays);
     return results; // returns a two dimensional data array for the columns requested.
+  }
+
+  /**
+   * Helper method to find a column name in a case-insensitive way.
+   * @param columnName The column name to search for (case-insensitive)
+   * @returns The actual column name from the data, or null if not found
+   */
+  private findColumnNameCaseInsensitive(columnName: string): string | null {
+    const lowerCaseColumnName = columnName.toLowerCase();
+    for (const actualColumnName of this.columnNames) {
+      if (actualColumnName.toLowerCase() === lowerCaseColumnName) {
+        return actualColumnName;
+      }
+    }
+    return null;
   }
 }
 
@@ -218,7 +243,7 @@ export class ActionData extends TabularData {
     const actionData = new ActionData(jsonData);
 
     try {
-      const dataRoot = jsonData.embedAnswerData;
+      const dataRoot = jsonData.data.embedAnswerData;
 
       // Note that you can get more column names than data and that the data column are aligned by column ID.
       let originalColumnNames = [];
@@ -230,7 +255,7 @@ export class ActionData extends TabularData {
         columnIds.push(dataRoot.columns[colCnt].column.id);
       }
 
-      const dataSet = dataRoot.data[0].columnDataLite;
+      const dataSet = dataRoot.data.columnDataLite;
 
       const data = [];
       let columnNames = [];
