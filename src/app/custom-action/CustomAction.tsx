@@ -2,7 +2,11 @@
 
 import { useCallback } from "react";
 
-import { SearchEmbed, useEmbedRef } from "@thoughtspot/visual-embed-sdk/react";
+import { SearchEmbed } from "@thoughtspot/visual-embed-sdk/react";
+import {
+  CustomActionTarget,
+  CustomActionsPosition,
+} from "@thoughtspot/visual-embed-sdk";
 
 import { ActionData } from "@/lib/data-classes";
 import { ActionDataType } from "@/lib/data-classes-types";
@@ -66,9 +70,9 @@ const CustomAction = () => {
     />
    */
 
-    <div>
+    <>
       <p>Not yet implemented.</p>
-    </div>
+    </>
   );
 };
 

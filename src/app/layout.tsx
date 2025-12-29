@@ -2,34 +2,34 @@
 
 import "./globals.css";
 
-import {TopNavBar} from "@/components/TopNavBar";
-import {TSFooter} from "@/components/TSFooter";
+import { TopNavBar } from "@/components/TopNavBar";
+import { TSFooter } from "@/components/TSFooter";
 
-import ThoughtSpotEmbed from "@/components/ThoughtSpotEmbed.tsx";
+import ThoughtSpotEmbed from "@/components/ThoughtSpotEmbed";
 
 export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: React.ReactNode;
+  children,
+}: Readonly<{
+  children: React.ReactNode;
 }>) {
-    console.log("Rendering RootLayout");
+  console.log("Rendering RootLayout");
 
-    return (
-        <html lang="en">
-        <head>
-            <meta charSet="utf-8"/>
-            <title>TSE Advanced</title>
-            <link rel="icon" href="/images/ts.png" type="images/png"/>
-        </head>
-        <body>
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <title>TSE Advanced</title>
+        <link rel="icon" href="/images/ts.png" type="images/png" />
+      </head>
+      <body>
         <>
-            <TopNavBar/>
-            <ThoughtSpotEmbed>
-                <div className="embeddedContent">{children}</div>
-            </ThoughtSpotEmbed>
-            <TSFooter/>
+          <TopNavBar />
+          <ThoughtSpotEmbed>
+            <div className="embeddedContent">{children}</div>
+          </ThoughtSpotEmbed>
+          <TSFooter />
         </>
-        </body>
-        </html>
-    );
+      </body>
+    </html>
+  );
 }

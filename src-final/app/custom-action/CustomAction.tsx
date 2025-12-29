@@ -2,7 +2,11 @@
 
 import { useCallback } from "react";
 
-import { SearchEmbed, useEmbedRef } from "@thoughtspot/visual-embed-sdk/react";
+import { SearchEmbed } from "@thoughtspot/visual-embed-sdk/react";
+import {
+  CustomActionTarget,
+  CustomActionsPosition,
+} from "@thoughtspot/visual-embed-sdk";
 
 import { ActionData } from "@/lib/data-classes";
 import { ActionDataType } from "@/lib/data-classes-types";
@@ -66,18 +70,35 @@ const CustomAction = () => {
     />
    */
 
-    <div>
+    /*
+    <>
+      <p>Not yet implemented.</p>
+    </>
+    */
+
+    <>
       <SearchEmbed
         dataSource="4d98d3f5-5c6a-44eb-82fb-d529ca20e31f"
-        collapseDataPanel={true}
         searchOptions={{
           searchTokenString:
-            "[Product] [Product Type] [SKU] [Quantity Purchased] sum [Quantity Purchased] > 150000",
+            "[Quantity Purchased] [Product] [SKU] sum [Quantity Purchased] > 150000",
           executeSearch: true,
         }}
+        forceTable={true}
+        customActions={[
+          {
+            id: "order-inventory",
+            name: "Order Inventory",
+            position: CustomActionsPosition.MENU,
+            target: CustomActionTarget.ANSWER,
+            dataModelIds: {
+              modelColumnNames: ["4d98d3f5-5c6a-44eb-82fb-d529ca20e31f::SKU"],
+            },
+          },
+        ]}
         onCustomAction={handleCustomAction}
       />
-    </div>
+    </>
   );
 };
 

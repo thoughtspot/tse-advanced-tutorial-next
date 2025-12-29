@@ -14,8 +14,8 @@ export default function Home() {
           <li>Authenticating using trusted authentication.</li>
           <li>Handling system events and sending host events.</li>
           <li>
-            Responding to custom actions to extend the capabilities of
-            ThoughtSpot.
+            Responding to custom actions to integrate with external
+            applications.
           </li>
           <li>Create your own chatbot using a bodyless conversation.</li>
         </ul>
@@ -28,12 +28,10 @@ export default function Home() {
             to events in the other.
           </li>
           <li>
-            Custom Action - shows an embedded liveboard with a custom action
-            that adds new capabilities to ThoughSpot.
+            Custom Action - Embed a search with a code-based custom action to
+            send data to an external application.
           </li>
-          <li>
-            Chat - Allows you to use natural language queries to ask for
-          </li>
+          <li>Chat - Allows you to use natural language queries to ask for</li>
           {/*
           <li>
             Data API - shows a table based data from the SearchData API call.

@@ -1,7 +1,7 @@
 "use client";
 
 // Wrapper component for embedding ThoughtSpot content in a React application.
-import { AuthStatus, AuthType, init } from "@thoughtspot/visual-embed-sdk";
+import { useEffect } from "react";
 
 import { getAuthToken } from "@/lib/trusted_auth";
 import { constants } from "@/lib/constants";
@@ -15,41 +15,51 @@ export default function ThoughtSpotEmbed({
 }) {
   const { style, setStyle } = useStyle();
 
-  const tsInitialize = () => {
-    console.log("Initializing ThoughtSpot SDK");
+  useEffect(() => {
+    // Only initialize on the client side
+    if (typeof window === "undefined") return;
 
-    // Custom CSS for the pop-up embed.  Add to the init.
-    const customizations = {
-      style: {
-        customCSS: {
-          variables: {},
-          rules_UNSTABLE: {
-            ".embed-module__tsEmbedContainer": {
-              "min-height": "0px !important",
-              "min-width": "0px !important",
+    // Dynamically import the SDK only on the client
+    import("@thoughtspot/visual-embed-sdk").then(
+      ({ AuthStatus, AuthType, init }) => {
+        const tsInitialize = () => {
+          console.log("Initializing ThoughtSpot SDK");
+
+          // Custom CSS for the pop-up embed.  Add to the init.
+          const customizations = {
+            style: {
+              customCSS: {
+                variables: {},
+                rules_UNSTABLE: {
+                  ".embed-module__tsEmbedContainer": {
+                    "min-height": "0px !important",
+                    "min-width": "0px !important",
+                  },
+                },
+              },
             },
-          },
-        },
-      },
-    };
+          };
 
-    // Lesson 1.2 - Add an init block to authenticate using trusted authentication.
-    const ee = undefined;
+          // Lesson 1.2 - Add an init block to authenticate using trusted authentication.
+          const ee: any = undefined;
 
-    if (ee) {
-      ee.on(AuthStatus.SUCCESS, () => {
-        console.log("Success");
-      })
-        .on(AuthStatus.SDK_SUCCESS, () => {
-          console.log("SDK Success");
-        })
-        .on(AuthStatus.FAILURE, (reason) => {
-          console.log("Failure:  " + reason);
-        });
-    }
-  };
+          if (ee) {
+            ee.on(AuthStatus.SUCCESS, () => {
+              console.log("Success");
+            })
+              .on(AuthStatus.SDK_SUCCESS, () => {
+                console.log("SDK Success");
+              })
+              .on(AuthStatus.FAILURE, (reason: any) => {
+                console.log("Failure:  " + reason);
+              });
+          }
+        };
 
-  tsInitialize();
+        tsInitialize();
+      }
+    );
+  }, []);
 
   return (
     <div className="w-full h-full">
