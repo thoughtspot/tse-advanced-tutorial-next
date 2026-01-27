@@ -8,8 +8,7 @@ import {
   CustomActionsPosition,
 } from "@thoughtspot/visual-embed-sdk";
 
-import { ActionData } from "@/lib/data-classes";
-import { ActionDataType } from "@/lib/data-classes-types";
+import { ActionData, ActionDataType } from "tse-data-classes";
 
 const CustomAction = () => {
   // 3.2 - Handle custom action callback
@@ -30,13 +29,13 @@ const CustomAction = () => {
       // Get column names and check if SKU column exists (case insensitive)
       const columnNames = actionData.columnNames;
       const skuColumnExists = columnNames.some(
-        (name: string) => name.toLowerCase() === "sku"
+        (name: string) => name.toLowerCase() === "sku",
       );
 
       if (!skuColumnExists) {
         // Show error message to user
         alert(
-          "Error: SKU column not found in the selected data. Please ensure your data includes a SKU column."
+          "Error: SKU column not found in the selected data. Please ensure your data includes a SKU column.",
         );
         return;
       }

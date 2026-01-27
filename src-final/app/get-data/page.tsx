@@ -10,7 +10,7 @@ import {
 
 import { constants } from "@/lib/constants";
 import { getAuthToken } from "@/lib/trusted_auth";
-import { SearchData } from "@/lib/data-classes";
+import { SearchData } from "tse-data-classes";
 
 const tmlquery = "[sales] [product type] [product]";
 const worksheetId = "4d98d3f5-5c6a-44eb-82fb-d529ca20e31f";
