@@ -3,12 +3,9 @@
 import Link from "next/link";
 import { Dropdown, Navbar } from "flowbite-react";
 
-import { useStyle } from "@/contexts/StyleContext";
-
 interface NavBarProps {}
 
 export function TopNavBar(props: NavBarProps) {
-  const { style, setStyle } = useStyle();
 
   return (
     <Navbar fluid className="bg-black text-white">

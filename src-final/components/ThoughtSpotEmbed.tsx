@@ -1,37 +1,26 @@
 "use client";
 
 // Wrapper component for embedding ThoughtSpot content in a React application.
+import { useEffect, useState } from "react";
+
+// Module-level guard: prevents init() from running more than once
+// even under React StrictMode's double-mount in development.
+let tsSDKInitialized = false;
+
 import { AuthStatus, AuthType, init } from "@thoughtspot/visual-embed-sdk";
 
 import { getAuthToken } from "@/lib/trusted_auth";
 import { constants } from "@/lib/constants";
-
-import { useStyle } from "@/contexts/StyleContext";
 
 export default function ThoughtSpotEmbed({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { style, setStyle } = useStyle();
+  const [initialized, setInitialized] = useState(false);
 
   const tsInitialize = () => {
     console.log("Initializing ThoughtSpot SDK");
-
-    // (Optional) Custom CSS for the pop-up embed.  Add to the init.
-    const customizations = {
-      style: {
-        customCSS: {
-          variables: {},
-          rules_UNSTABLE: {
-            ".embed-module__tsEmbedContainer": {
-              "min-height": "0px !important",
-              "min-width": "0px !important",
-            },
-          },
-        },
-      },
-    };
 
     // Lesson 1.2 - Add an init block to authenticate using trusted authentication.
     // const ee = undefined;
@@ -43,7 +32,6 @@ export default function ThoughtSpotEmbed({
       getAuthToken: getAuthToken,
       disableTokenVerification: true,
       callPrefetch: true,
-      customizations: customizations,
     });
 
     if (ee) {
@@ -52,6 +40,7 @@ export default function ThoughtSpotEmbed({
       })
         .on(AuthStatus.SDK_SUCCESS, () => {
           console.log("SDK Success");
+          setInitialized(true);
         })
         .on(AuthStatus.FAILURE, (reason) => {
           console.log("Failure:  " + reason);
@@ -59,12 +48,17 @@ export default function ThoughtSpotEmbed({
     }
   };
 
-  tsInitialize();
+  useEffect(() => {
+    if (!tsSDKInitialized) {
+      tsSDKInitialized = true;
+      tsInitialize();
+    }
+  }, []);
 
   return (
     <div className="w-full h-full">
       <div className="w-full h-full" id="ts-embed">
-        {children}
+        {initialized && children}
       </div>
     </div>
   );
