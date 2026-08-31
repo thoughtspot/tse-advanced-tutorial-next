@@ -11,13 +11,15 @@ export default function Home() {
         <p>&nbsp;</p>
 
         <ul className="instructions list-disc list-inside">
-          <li>Authenticating using trusted authentication.</li>
-          <li>Handling system events and sending host events.</li>
+          <li>Authenticate using trusted authentication.</li>
+          <li>Handle system events and send host events.</li>
           <li>
-            Responding to custom actions to integrate with external
-            applications.
+            Respond to custom actions to integrate with external applications.
           </li>
-          <li>Create your own chatbot using a bodyless conversation.</li>
+          <li>
+            Use APIs to create a dashboard list page that updates automatically
+            when users create content.
+          </li>
         </ul>
 
         <h1>Page descriptions</h1>
@@ -31,7 +33,7 @@ export default function Home() {
             Custom Action - Embed a search with a code-based custom action to
             send data to an external application.
           </li>
-          <li>Chat - Allows you to use natural language queries to ask for</li>
+          <li>Liveboards - Allows users to list liveboards and navigate.</li>
           {/*
           <li>
             Data API - shows a table based data from the SearchData API call.

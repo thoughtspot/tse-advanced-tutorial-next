@@ -6,7 +6,6 @@ import { Dropdown, Navbar } from "flowbite-react";
 interface NavBarProps {}
 
 export function TopNavBar(props: NavBarProps) {
-
   return (
     <Navbar fluid className="bg-black text-white">
       <Navbar.Brand as={Link} href="/#">
@@ -17,16 +16,22 @@ export function TopNavBar(props: NavBarProps) {
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse>
-        <Navbar.Link className="text-white hover:orange hover:font-bold" href="/host-event">
+        <Navbar.Link
+          className="text-white hover:orange hover:font-bold"
+          href="/host-event"
+        >
           Events
         </Navbar.Link>
-        <Navbar.Link className="text-white hover:font-bold" href="/custom-action">
+        <Navbar.Link
+          className="text-white hover:font-bold"
+          href="/custom-action"
+        >
           Custom Actions
         </Navbar.Link>
-          <Navbar.Link className="text-white hover:font-bold" href="/chat">
-              Chat
-          </Navbar.Link>
-          {/*
+        <Navbar.Link className="text-white hover:font-bold" href="/liveboards">
+          Liveboards
+        </Navbar.Link>
+        {/*
         <Navbar.Link className={styles.navlink} href="/get-data">
           Data API
         </Navbar.Link>

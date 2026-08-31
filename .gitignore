@@ -1,5 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# original files I do not want to add or commit
+*.orig
 .claude
 
 .idea
