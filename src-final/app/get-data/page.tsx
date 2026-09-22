@@ -22,6 +22,7 @@ const tokenConfig = createBearerAuthenticationConfig(constants.tsURL, () => {
 
 export default function GetData() {
   const [searchData, setSearchData] = useState<SearchData | null>();
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Get the data using the search API.
@@ -33,12 +34,27 @@ export default function GetData() {
         record_size: 50, // just get 50 rows.
       })
       .then((data) => {
+        // The factory does not throw: a payload it could not read comes back
+        // with isValid === false.
         const searchData = SearchData.createFromJSON(data);
+
+        if (!searchData.isValid) {
+          console.error("Could not read the search data:", searchData.errors);
+          setError("Unable to read the search results.");
+          return;
+        }
+
+        if (searchData.warnings.length) {
+          // Non-fatal adjustments, e.g. a duplicate column renamed or a short row padded.
+          console.warn("Adjustments made to the search data:", searchData.warnings);
+        }
+
         console.log(searchData);
         setSearchData(searchData);
       })
       .catch((error) => {
         console.error(error);
+        setError("Unable to load the search results.");
       });
   }, []);
 
@@ -49,7 +65,8 @@ export default function GetData() {
           Search Data ID: {worksheetId} -- Query: {tmlquery}
         </p>
       </div>
-      {!searchData && <p>Loading.....</p>}
+      {error && <p className="px-0.5 my-5">{error}</p>}
+      {!searchData && !error && <p>Loading.....</p>}
       {searchData && (
         <Table striped>
           <Table.Head>

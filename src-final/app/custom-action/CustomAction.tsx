@@ -22,42 +22,53 @@ const CustomAction = () => {
       return;
     }
 
-    try {
-      // Use ActionData class to convert from JSON
-      const actionData = ActionData.createFromJSON(payload as ActionDataType);
+    // Use ActionData class to convert from JSON.  The factory does not throw:
+    // a payload it could not read comes back with isValid === false.
+    const actionData = ActionData.createFromJSON(payload as ActionDataType);
 
-      // Get column names and check if SKU column exists (case insensitive)
-      const columnNames = actionData.columnNames;
-      const skuColumnExists = columnNames.some(
-        (name: string) => name.toLowerCase() === "sku",
-      );
-
-      if (!skuColumnExists) {
-        // Show error message to user
-        alert(
-          "Error: SKU column not found in the selected data. Please ensure your data includes a SKU column.",
-        );
-        return;
-      }
-
-      // Extract SKU data using getDataAsTable method
-      const skuTable = actionData.getDataAsTable(["sku"]);
-
-      // Create URL with SKU parameters
-      const baseUrl = "https://tse-order-inventory.vercel.app/order";
-      const skuParams = skuTable
-        .map((row) => `sku=${encodeURIComponent(row[0])}`)
-        .join("&");
-      const fullUrl = `${baseUrl}?${skuParams}`;
-
-      console.log("Opening URL:", fullUrl);
-
-      // Open URL in new tab
-      window.open(fullUrl, "_blank");
-    } catch (error) {
-      console.error("Error processing custom action:", error);
+    if (!actionData.isValid) {
+      console.error("Could not read the action payload:", actionData.errors);
       alert("Error processing the custom action. Please try again.");
+      return;
     }
+
+    if (actionData.warnings.length) {
+      // Non-fatal adjustments, e.g. a duplicate column renamed or a short row padded.
+      console.warn("Adjustments made to the action data:", actionData.warnings);
+    }
+
+    // Get column names and check if SKU column exists (case insensitive)
+    if (!actionData.hasColumn("sku")) {
+      // Show error message to user
+      alert(
+        "Error: SKU column not found in the selected data. Please ensure your data includes a SKU column.",
+      );
+      return;
+    }
+
+    // Extract SKU data using getDataAsTable method.  Cells are CellValue
+    // (string | number | null), so drop the rows with no SKU value.
+    const skus = actionData
+      .getDataAsTable(["sku"])
+      .map((row) => row[0])
+      .filter((sku): sku is string | number => sku !== null && sku !== "");
+
+    if (skus.length === 0) {
+      alert("Error: No SKU values found in the selected data.");
+      return;
+    }
+
+    // Create URL with SKU parameters
+    const baseUrl = "https://tse-order-inventory.vercel.app/order";
+    const skuParams = skus
+      .map((sku) => `sku=${encodeURIComponent(sku)}`)
+      .join("&");
+    const fullUrl = `${baseUrl}?${skuParams}`;
+
+    console.log("Opening URL:", fullUrl);
+
+    // Open URL in new tab
+    window.open(fullUrl, "_blank");
   }, []);
 
   return (
